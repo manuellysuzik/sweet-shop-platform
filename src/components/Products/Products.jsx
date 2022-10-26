@@ -21,6 +21,7 @@ const Products = ({ onClickCartButton }) => {
       console.log(err.message || 'Unexpected Error!');
     }
   };
+
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />

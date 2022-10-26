@@ -71,7 +71,7 @@ const Cart = () => {
             color='primary'
           >
             {' '}
-            Checkout
+            Finalizar
           </Button>
         </div>
       </div>
