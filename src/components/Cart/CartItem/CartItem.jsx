@@ -21,9 +21,9 @@ const CartItem = ({ cartItem }) => {
       />
       <CardContent className={classes.cardContent}>
         <Typography variant='h4'>{cartItem?.product.name}</Typography>
-        <Typography variant='h5'>
-          R$ {cartItem?.product.price} x {cartItem?.unity}
-        </Typography>
+        <div className={classes.itemPrice}>
+          <Typography variant='h5'>R$ {cartItem?.product.price}</Typography>
+        </div>
       </CardContent>
       <CardActions className={classes.cartActions}>
         <div className={classes.buttons}>

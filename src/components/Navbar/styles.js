@@ -5,6 +5,10 @@ import { alpha } from "@mui/material";
 const drawerWidth = 0;
 
 export default makeStyles((theme) => ({
+  Link: {
+    color:'inherit',
+    textDecoration:'none',
+  },
   appBar: {
     boxShadow: 'none',
     borderBottom: '1px solid rgba(0, 0, 0, 0.12)',

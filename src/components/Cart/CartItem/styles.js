@@ -8,6 +8,10 @@ export default makeStyles(() => ({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  itemPrice:{
+    display:"flex",
+    whiteSpace:"nowrap"
+  },
   cartActions: {
     justifyContent: 'space-between',
   },

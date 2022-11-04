@@ -5,6 +5,10 @@ export default makeStyles((theme) => ({
   title: {
     marginTop: '5%',
   },
+  Link: {
+    color:'inherit',
+    textDecoration:'none',
+  },
   emptyButton: {
     minWidth: '150px',
     [theme.breakpoints.down('xs')]: {

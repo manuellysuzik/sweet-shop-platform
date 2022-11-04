@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import { Container, Typography, Button, Grid } from '@mui/material';
 import { CartContext } from '../../contexts/context';
+import api from '../../api/axios';
 import useStyles from './styles';
 import CartItem from './CartItem/CartItem';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const classes = useStyles();
@@ -13,27 +15,32 @@ const Cart = () => {
 
   const groupProductByQuantity = () => {
     const countProducts = _.countBy(cart, (item) => {
-      return item?.product?.name;
+      return item?.product?.id;
     });
-    const formattedArrayOfProducts = cart.map((item) => {
+
+    const buildCartItems = cart.map((item) => {
       return {
         product: item?.product,
-        unity: countProducts[item?.product?.name],
+        unity: countProducts[item?.product?.id],
       };
     });
-    const uniqProducts = _.sortedUniqBy(
-      formattedArrayOfProducts,
+    const formattedArrayOfProducts = _.unionBy(
+      buildCartItems,
       (item) => item?.product?.id
     );
-
-    return uniqProducts;
+    return formattedArrayOfProducts;
   };
+  const cartItems = groupProductByQuantity();
 
-  const cartWithFormattedProducts = groupProductByQuantity();
+  const handleCartProducts = async () => {
+    await api.post('/cart', cartItems);
+
+    return alert('Item enviado');
+  };
 
   if (!cartIsEmpty) {
     cartTotal = _.sumBy(
-      cartWithFormattedProducts,
+      cartItems,
       (item) => item.product.price * item.unity
     ).toFixed(2);
   }
@@ -45,7 +52,7 @@ const Cart = () => {
   const FilledCart = () => (
     <>
       <Grid container spacing={3}>
-        {cartWithFormattedProducts?.map((cartItem, index) => (
+        {cartItems?.map((cartItem, index) => (
           <Grid item xs={12} sm={4} key={index}>
             <CartItem cartItem={cartItem} />
           </Grid>
@@ -54,25 +61,29 @@ const Cart = () => {
       <div className={classes.cardDetails}>
         <Typography variant='h4'>Total: {cartTotal}</Typography>
         <div>
-          <Button
-            className={classes.emptyButton}
-            size='large'
-            type='button'
-            variant='contained'
-            color='secondary'
-          >
-            Empty Cart
-          </Button>
-          <Button
-            className={classes.checkoutButton}
-            size='large'
-            type='button'
-            variant='contained'
-            color='primary'
-          >
-            {' '}
-            Finalizar
-          </Button>
+          <Link to='/' className={classes.Link}>
+            <Button
+              className={classes.emptyButton}
+              size='large'
+              type='button'
+              variant='contained'
+              color='secondary'
+            >
+              Continuar Comprando
+            </Button>
+          </Link>
+          <Link to='/cartEnd' className={classes.Link}>
+            <Button
+              className={classes.checkoutButton}
+              size='large'
+              type='button'
+              variant='contained'
+              color='primary'
+              onClick={handleCartProducts}
+            >
+              Finalizar
+            </Button>
+          </Link>
         </div>
       </div>
     </>
