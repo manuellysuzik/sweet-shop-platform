@@ -30,7 +30,7 @@ const CartItem = ({ cartItem }) => {
           <Button type='button' size='small'>
             -
           </Button>
-          <Typography>{cartItem.unity}</Typography>
+          <Typography>{cartItem.unit}</Typography>
           <Button type='button' size='small'>
             +
           </Button>

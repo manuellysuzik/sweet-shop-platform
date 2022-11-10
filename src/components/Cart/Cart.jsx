@@ -20,8 +20,8 @@ const Cart = () => {
 
     const buildCartItems = cart.map((item) => {
       return {
-        product: item?.product,
-        unity: countProducts[item?.product?.id],
+        ...item,
+        unit: countProducts[item?.product?.id],
       };
     });
     const formattedArrayOfProducts = _.unionBy(
@@ -39,10 +39,9 @@ const Cart = () => {
   };
 
   if (!cartIsEmpty) {
-    cartTotal = _.sumBy(
-      cartItems,
-      (item) => item.product.price * item.unity
-    ).toFixed(2);
+    cartTotal = _.sumBy(cartItems, (item) => item.price * item.unity).toFixed(
+      2
+    );
   }
 
   const EmptyCart = () => (
