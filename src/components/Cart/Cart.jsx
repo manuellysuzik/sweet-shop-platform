@@ -39,9 +39,9 @@ const Cart = () => {
   };
 
   if (!cartIsEmpty) {
-    cartTotal = _.sumBy(cartItems, (item) => item.price * item.unity).toFixed(
-      2
-    );
+    cartTotal = _.sumBy(cartItems, (item) => {
+      return item.product.price * item.unit;
+    }).toFixed(2);
   }
 
   const EmptyCart = () => (
